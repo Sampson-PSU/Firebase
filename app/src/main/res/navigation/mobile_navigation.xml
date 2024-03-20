@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.firebaseauthentication.fragments.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_list_books"
+        android:name="com.example.firebaseauthentication.fragments.ListBooksFragment"
+        android:label="@string/menu_list_books"
+        tools:layout="@layout/fragment_list_books" />
+
+    <fragment
+        android:id="@+id/nav_add_book"
+        android:name="com.example.firebaseauthentication.fragments.AddBookFragment"
+        android:label="@string/add_book"
+        tools:layout="@layout/fragment_add_book" />
+
+    <fragment
+        android:id="@+id/nav_log_out"
+        android:name="com.example.firebaseauthentication.fragments.LogOutFragment"
+        android:label="@string/menu_log_out"
+        tools:layout="@layout/fragment_log_out" />
+</navigation>
