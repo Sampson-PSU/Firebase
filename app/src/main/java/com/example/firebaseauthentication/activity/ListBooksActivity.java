@@ -1,7 +1,6 @@
 package com.example.firebaseauthentication.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,15 +17,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class BooksActivity extends AppCompatActivity {
+public class ListBooksActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private DatabaseReference mDatabaseReference;
     private FirebaseDatabase mFirebaseDatabase;
     private BooksAdapter mBooksAdapter;
-    private ValueEventListener valueEventListener;
+    ArrayList<Book> bookList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,34 +32,33 @@ public class BooksActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_list_books);
 
         mRecyclerView = findViewById(R.id.recyclerView);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mBooksAdapter);
-
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference("books");
-        mDatabaseReference.addListenerForSingleValueEvent(valueEventListener);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        valueEventListener = new ValueEventListener() {
+        bookList = new ArrayList<>();
+        mRecyclerView.setAdapter(mBooksAdapter);
+
+        mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<Book> bookList = new ArrayList<>();
-                bookList.clear();
-                if(snapshot.exists()){
+                try {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        Book book = snapshot.getValue(Book.class);
+                        Book book = dataSnapshot.getValue(Book.class);
                         bookList.add(book);
                     }
-                    mBooksAdapter = new BooksAdapter(bookList);
-                    mRecyclerView.setAdapter(mBooksAdapter);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
                 }
+                mBooksAdapter.notifyAll();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-                Log.e("BookListActivity", "Error retrieving books from database",
-                        error.toException());
             }
-        };
+        });
     }
 }
+
+

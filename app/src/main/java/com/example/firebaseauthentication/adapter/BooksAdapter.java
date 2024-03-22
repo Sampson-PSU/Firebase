@@ -1,5 +1,6 @@
 package com.example.firebaseauthentication.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,47 +15,43 @@ import com.example.firebaseauthentication.model.Book;
 import java.util.List;
 
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHolder> {
+    private Context context;
+    private List<Book> bookList;
 
-    private List<Book> mBooks;
-    public BooksAdapter(List<Book> books) {
-        this.mBooks = books;
+    public BooksAdapter(List<Book> bookList) {
+        this.context = context;
+        this.bookList = bookList;
     }
 
     @NonNull
     @Override
     public BookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_book, parent, false);
+
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_book, parent, false);
         return new BookViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
-        Book book = mBooks.get(position);
-        //holder.bind(book);
-        holder.mTitleTextView.setText(book.getTitle());
-        holder.mAuthorTextView.setText(book.getAuthor());
-        holder.mPublisherTextView.setText(book.getPublisher());
-        holder.mPublicationDateTextView.setText(book.getPublication_date());
-        holder.mIsbnTextView.setText(book.getIsbn());
+        // Set the book details to the views in the ViewHolder.
+        holder.mTitleTextView.setText(bookList.get(position).getTitle());
+        holder.mAuthorTextView.setText(bookList.get(position).getAuthor());
+        holder.mPublisherTextView.setText(bookList.get(position).getPublisher());
+        holder.mPublicationDateTextView.setText(bookList.get(position).getPublication());
+        holder.mIsbnTextView.setText(bookList.get(position).getIsbn());
     }
 
     @Override
     public int getItemCount() {
-        return mBooks.size();
+        return bookList.size();
     }
 
-    public void setBooks(List<Book> books) {
-        mBooks = books;
-        notifyDataSetChanged();
-    }
-
-    static class BookViewHolder extends RecyclerView.ViewHolder {
-        private TextView mTitleTextView;
-        private TextView mAuthorTextView;
-        private TextView mPublisherTextView;
-        private TextView mPublicationDateTextView;
-        private TextView mIsbnTextView;
+    public static class BookViewHolder extends RecyclerView.ViewHolder {
+        TextView mTitleTextView;
+        TextView mAuthorTextView;
+        TextView mPublisherTextView;
+        TextView mPublicationDateTextView;
+        TextView mIsbnTextView;
 
         public BookViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -64,14 +61,6 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHold
             mPublisherTextView = itemView.findViewById(R.id.publisher_text_view);
             mPublicationDateTextView = itemView.findViewById(R.id.publication_date_text_view);
             mIsbnTextView = itemView.findViewById(R.id.isbn_text_view);
-        }
-
-        public void bind(Book book) {
-            mTitleTextView.setText("Title: "+ book.getTitle());
-            mAuthorTextView.setText("Author: "+book.getAuthor());
-            mPublisherTextView.setText("Publisher: "+book.getPublisher());
-            mPublicationDateTextView.setText("Publication Date: "+book.getPublication_date());
-            mIsbnTextView.setText("ISBN: "+book.getIsbn().toString());
         }
     }
 }

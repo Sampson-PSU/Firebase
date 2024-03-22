@@ -42,4 +42,22 @@
     <string name="sign_in_time">Sign In Time</string>
     <string name="menu_add_books">Add Books</string>
     <string name="menu_add_book">Add Book</string>
+    <string name="frag_add_book_header">Add Book</string>
+    <string name="frag_text_view_title">Title</string>
+    <string name="frag_text_view_author">Author</string>
+    <string name="frag_text_view_publisher">Publisher</string>
+    <string name="frag_text_view_publication_date">Publication Date</string>
+    <string name="frag_text_view_isbn">ISBN</string>
+    <string name="frag_button_add_book">Add Book</string>
+    <string name="button_text_add_book">Add</string>
+    <string name="enter_isbn">Enter ISBN</string>
+    <string name="enter_publication_date">Enter Publication Date</string>
+    <string name="enter_publisher">Enter Publisher</string>
+    <string name="enter_author">Enter Author</string>
+    <string name="enter_title">Enter Title</string>
+    <string name="text_title">Title:</string>
+    <string name="text_author">Author:</string>
+    <string name="text_publisher">Publisher:</string>
+    <string name="text_publication">Publication:</string>
+    <string name="text_isbn">ISBN:</string>
 </resources>
