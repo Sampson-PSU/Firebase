@@ -1,6 +1,6 @@
 package com.example.firebaseauthentication.adapter;
 
-import android.content.Context;
+// Import all necessary libraries.
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +15,16 @@ import com.example.firebaseauthentication.model.Book;
 import java.util.List;
 
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHolder> {
-    private Context context;
-    private List<Book> bookList;
+    // Declare a private list to hold books.
+    private final List<Book> bookList;
 
+    // Initialize adapter with a list of books.
     public BooksAdapter(List<Book> bookList) {
-        this.context = context;
+
         this.bookList = bookList;
     }
 
+    // Create a new ViewHolder for each item in the list.
     @NonNull
     @Override
     public BookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -31,8 +33,10 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHold
         return new BookViewHolder(view);
     }
 
+    // Bind data to the views in the ViewHolder.
     @Override
     public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
+
         // Set the book details to the views in the ViewHolder.
         holder.mTitleTextView.setText(bookList.get(position).getTitle());
         holder.mAuthorTextView.setText(bookList.get(position).getAuthor());
@@ -41,11 +45,13 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHold
         holder.mIsbnTextView.setText(bookList.get(position).getIsbn());
     }
 
+    // Return the total number of items in the list.
     @Override
     public int getItemCount() {
         return bookList.size();
     }
 
+    // Static class representing the ViewHolder for a single book item.
     public static class BookViewHolder extends RecyclerView.ViewHolder {
         TextView mTitleTextView;
         TextView mAuthorTextView;
@@ -56,6 +62,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHold
         public BookViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            // Initialize the TextViews.
             mTitleTextView = itemView.findViewById(R.id.title_text_view);
             mAuthorTextView = itemView.findViewById(R.id.author_text_view);
             mPublisherTextView = itemView.findViewById(R.id.publisher_text_view);

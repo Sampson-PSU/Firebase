@@ -1,19 +1,23 @@
 package com.example.firebaseauthentication.model;
 
+// Import all necessary libraries.
 import java.io.Serializable;
 
 public class Book implements Serializable {
 
+    // Declare private fields for book details.
     private String title;
     private String author;
     private String publisher;
     private String publication;
     private String isbn;
-    private String image;
 
+    // Default constructor
     public Book() {
+        // Empty constructor required for Firebase Realtime Database serialization.
     }
 
+    // Constructor with book details.
     public Book(String title, String author, String publisher, String publication, String isbn) {
 
         this.title = title;
@@ -21,14 +25,12 @@ public class Book implements Serializable {
         this.publisher = publisher;
         this.publication = publication;
         this.isbn = isbn;
-        this.image = image;
     }
 
-    //Getters and Setters
+    // Getters and Setters.
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -36,7 +38,6 @@ public class Book implements Serializable {
     public String getAuthor() {
         return author;
     }
-
     public void setAuthor(String author) {
         this.author = author;
     }
@@ -44,7 +45,6 @@ public class Book implements Serializable {
     public String getPublisher() {
         return publisher;
     }
-
     public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
@@ -52,7 +52,6 @@ public class Book implements Serializable {
     public String getPublication() {
         return publication;
     }
-
     public void setPublication(String publication) {
         this.publication = publication;
     }
@@ -60,16 +59,7 @@ public class Book implements Serializable {
     public String getIsbn() {
         return isbn;
     }
-
     public void setIsbn(String isbn) {
         this.isbn = isbn;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 }

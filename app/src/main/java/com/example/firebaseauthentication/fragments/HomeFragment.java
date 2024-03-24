@@ -1,5 +1,6 @@
 package com.example.firebaseauthentication.fragments;
 
+// Import all necessary libraries.
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,14 +32,18 @@ public class HomeFragment extends Fragment {
         TextView signInDate = rootView.findViewById(R.id.sign_in_date_text);
         TextView signInTime = rootView.findViewById(R.id.sign_in_time_text);
 
+        // Retrieve the current user email address from Firebase Authentication.
         String currentUser = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+        // Get current date and time in the specified formats.
         String currentDate = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()).format(new Date());
         String currentTime = new SimpleDateFormat("K:mm a, z", Locale.getDefault()).format(new Date());
 
+        // Set values to TextViews.
         userName.setText(currentUser);
         signInDate.setText(currentDate);
         signInTime.setText(currentTime);
 
-        return rootView;
+        return rootView; // Return the root view for this fragment.
     }
 }

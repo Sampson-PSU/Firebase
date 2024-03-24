@@ -148,6 +148,7 @@
                     android:paddingEnd="2dp"
                     android:text="@string/isbn"
                     android:textSize="18sp" />
+
             </TableRow>
 
         </LinearLayout>

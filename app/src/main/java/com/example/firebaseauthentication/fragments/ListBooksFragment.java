@@ -1,9 +1,11 @@
 package com.example.firebaseauthentication.fragments;
 
+// Import all necessary library.
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,23 +28,24 @@ import java.util.List;
 public class ListBooksFragment extends Fragment {
     private BooksAdapter booksAdapter;
     private RecyclerView booksRecyclerView;
-    private DatabaseReference mDatabaseReference;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        // Inflate the layout for this fragment.
-        View view = inflater.inflate(R.layout.fragment_list_books, container, false);
 
-        booksRecyclerView = view.findViewById(R.id.recyclerView);
+        // Inflate the layout for this fragment.
+        View rootView = inflater.inflate(R.layout.fragment_list_books, container, false);
+
+        // Initialize the RecyclerView layout.
+        booksRecyclerView = rootView.findViewById(R.id.recyclerView);
         booksRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        // Initialize Firebase Realtime Database reference.
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference("books");
+        // Initialize a reference to the Firebase Realtime Database.
+        DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference("books");
 
         // Retrieve data from Firebase.
-        // Fetching all books.
+        // Fetching (query) all books.
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -54,26 +57,20 @@ public class ListBooksFragment extends Fragment {
                             bookList.add(book);
                         }
                 } catch (Exception e) {
+                    // Handles any exceptions.
                     throw new RuntimeException(e);
                 }
+                // Create an adapter for the RecyclerView and set it.
                 booksAdapter = new BooksAdapter(bookList);
                 booksRecyclerView.setAdapter(booksAdapter);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Handle error.
-
+                // Handle database read cancellation or errors.
+                Toast.makeText(getContext(), "Database Error", Toast.LENGTH_SHORT).show();
             }
         });
-        return view;
+        return rootView; // Return the root view for this fragment.
     }
 }
-
-
-    /*@Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        // Initialize Firebase Realtime Database Reference.
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference("books");
-    }*/

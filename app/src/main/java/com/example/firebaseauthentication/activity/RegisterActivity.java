@@ -1,5 +1,6 @@
 package com.example.firebaseauthentication.activity;
 
+// Import all necessary libraries.
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -21,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    // Declare UI elements.
     TextInputEditText editTextEmail, editTextPassword;
     Button buttonReq;
     FirebaseAuth mAuth;
@@ -29,8 +31,10 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        // Check if user is already logged in.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
+            // If logged in redirect to the RegisterActivity.
             Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
             startActivity(intent);
             finish();
@@ -42,29 +46,37 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        // Initialize Firebase Authentication.
         mAuth = FirebaseAuth.getInstance();
 
+        // Find UI elements by their id.
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
         buttonReq = findViewById(R.id.btn_register);
         textView = findViewById(R.id.loginNow);
 
+        // Set a click listener for the "Login" text view.
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Navigate to the LoginActivity.
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
-                finish();
+                finish(); // Close the current activity.
             }
         });
 
+        // Set a click listener for the register button.
         buttonReq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Get email and password from input fields.
                 String email, password;
                 email = String.valueOf(editTextEmail.getText());
                 password = String.valueOf(editTextPassword.getText());
 
+                // Validate input fields.
+                // Check if email and password fields are empty.
                 if(TextUtils.isEmpty(email)){
                     Toast.makeText(RegisterActivity.this, "Enter Email", Toast.LENGTH_SHORT).show();
                     return;
@@ -74,15 +86,17 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
+                // Create a new user account using Firebase Authentication.
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-
+                                    // User account creation is successful.
                                     Toast.makeText(RegisterActivity.this, "Authentication Created.", Toast.LENGTH_SHORT).show();
 
                                 } else {
+                                    // User account creation failed.
                                     Toast.makeText(RegisterActivity.this, "Authentication Failed.", Toast.LENGTH_SHORT).show();
                                 }
                             }

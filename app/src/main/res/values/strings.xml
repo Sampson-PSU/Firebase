@@ -60,4 +60,9 @@
     <string name="text_publisher">Publisher:</string>
     <string name="text_publication">Publication:</string>
     <string name="text_isbn">ISBN:</string>
+    <string name="_8942">⋮</string>
+    <string name="edit">Edit</string>
+    <string name="remove">Remove</string>
+    <string name="delete_book">Delete Book</string>
+    <string name="button_text_delete_book">Delete</string>
 </resources>

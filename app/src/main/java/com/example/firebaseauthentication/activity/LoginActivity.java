@@ -1,5 +1,6 @@
 package com.example.firebaseauthentication.activity;
 
+// Import all necessary libraries.
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -21,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
+    // Declare UI elements.
     TextInputEditText editTextEmail, editTextPassword;
     Button buttonLogin;
     FirebaseAuth mAuth;
@@ -29,11 +31,13 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        // Check if user is already logged in.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
+            // If logged in, redirect to the LoginActivity.
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
-            finish();
+            finish(); // Close current activity.
         }
     }
 
@@ -42,40 +46,48 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Initialize Firebase Authentication.
         mAuth = FirebaseAuth.getInstance();
 
+        // Find UI elements by their id.
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
         buttonLogin = findViewById(R.id.btn_login);
         textView = findViewById(R.id.registerNow);
 
+        // Set a click listener for the "Register" text view.
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Navigate to the RegisterActivity.
                 Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(intent);
-                finish();
+                finish(); // Close the current activity.
             }
         });
 
+        // Set a click listener for the login button.
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Get email and password from input fields.
                 String email, password;
                 email = String.valueOf(editTextEmail.getText());
                 password = String.valueOf(editTextPassword.getText());
 
+                // Validate input fields.
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(LoginActivity.this, "Enter email", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
+                // Check if the password field is empty.
                 if (TextUtils.isEmpty(password)) {
                     Toast.makeText(LoginActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
-                    return;
+                    return; // Exit the method to prevent further execution.
                 }
 
-                // Sign in existing user.
+                // Sign in existing user using Firebase Authentication.
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -83,8 +95,9 @@ public class LoginActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     // Sign-in is successful.
                                     Toast.makeText(LoginActivity.this, "Login Successful.", Toast.LENGTH_SHORT).show();
+                                    // Create an intent to navigate to the MainActivity.
                                     Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
-                                    startActivity(myIntent);
+                                    startActivity(myIntent); // Start the MainActivity.
 
                                 } else {
                                     // Sign-in failed.

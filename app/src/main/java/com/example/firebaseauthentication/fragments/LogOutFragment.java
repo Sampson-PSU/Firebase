@@ -1,5 +1,6 @@
 package com.example.firebaseauthentication.fragments;
 
+// Import all necessary libraries.
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -30,14 +31,16 @@ public class LogOutFragment extends Fragment implements View.OnClickListener {
         btnLogOut = rootView.findViewById(R.id.btn_log_out);
         btnLogOut.setOnClickListener(this);
 
-        return rootView;
+        return rootView; // Return the root view for this fragment.
     }
     @Override
     public void onClick(View view) {
-
+        // Handle button based on id.
         int id = view.getId();
         if (id == R.id.btn_log_out) {
+            // Sign out the user from Firebase Authentication.
             FirebaseAuth.getInstance().signOut();
+            // Start the LoginActivity to re-authenticate.
             startActivity(new Intent(getContext(), LoginActivity.class));
         }
     }
