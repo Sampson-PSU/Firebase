@@ -65,4 +65,6 @@
     <string name="remove">Remove</string>
     <string name="delete_book">Delete Book</string>
     <string name="button_text_delete_book">Delete</string>
+    <string name="email_address">Email</string>
+    <string name="books">Books</string>
 </resources>
