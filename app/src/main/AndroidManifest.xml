@@ -28,13 +28,6 @@
             android:name=".activity.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.ListBooksActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".activity.SplashScreenActivity"
             android:exported="true"
             android:theme="@style/SplashScreen">
